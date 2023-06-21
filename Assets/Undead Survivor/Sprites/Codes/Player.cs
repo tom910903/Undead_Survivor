@@ -8,11 +8,15 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     public float speed;
     Rigidbody2D rigid;
+    SpriteRenderer spriter;
+    Animator ani;
 
     // Start is called before the first frame update
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriter = GetComponent<SpriteRenderer>();
+        ani = GetComponent<Animator>();
     }
 
     //// Update is called once per frame
@@ -43,5 +47,14 @@ public class Player : MonoBehaviour
         //Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
+    }
+
+    void LateUpdate()
+    {
+        ani.SetFloat("Speed", inputVec.magnitude);
+
+        if (inputVec.x != 0) {
+            spriter.flipX = inputVec.x < 0;
+        }
     }
 }
