@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.instance.isLive) return;
         if (!isLive || ani.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
 
         Vector2 dirVec = target.position - rigid.position;
@@ -39,6 +40,9 @@ public class Enemy : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!GameManager.instance.isLive) return;
+
+   		if (!isLive) return;
         spriter.flipX = target.position.x < rigid.position.x;
     }
 
@@ -49,7 +53,7 @@ public class Enemy : MonoBehaviour
         collider.enabled = true;
         rigid.simulated = true;
         spriter.sortingOrder = 2;
-        ani.SetBool("Dead", true);
+        ani.SetBool("Dead", false);
         health = maxHealth;
     }
 

@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
     public void Init(ItemData data)
     {
         // Basic set
-        name = "Weapon" + ((int)data.itemType);//data.itemId;
+        name = "Weapon" + data.itemId;
         transform.parent = player.transform;
         transform.localPosition = Vector3.zero;
 
@@ -61,6 +61,8 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive) return;
+
         switch (id)
         {
             case 0:

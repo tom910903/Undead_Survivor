@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.instance.isLive) return;
         // 1. 힘을 준다
         //rigid.AddForce(inputVec);
 
@@ -50,12 +51,14 @@ public class Player : MonoBehaviour
         //rigid.MovePosition(rigid.position + inputVec);
 
         //Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
-        Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
+        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
     void LateUpdate()
     {
+        if (!GameManager.instance.isLive) return;
+
         ani.SetFloat("Speed", inputVec.magnitude);
 
         if (inputVec.x != 0) {
