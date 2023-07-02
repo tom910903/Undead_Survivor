@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float speed;
     public Scanner scanner;
     public Hand[] hands;
+    public RuntimeAnimatorController[] aniCon;
 
     Rigidbody2D rigid;
     SpriteRenderer spriter;
@@ -22,6 +23,12 @@ public class Player : MonoBehaviour
         ani = GetComponent<Animator>();
         scanner = GetComponent<Scanner>();
         hands = GetComponentsInChildren<Hand>(true);
+    }
+
+    private void OnEnable()
+    {
+        speed *= Character.Speed;
+        ani.runtimeAnimatorController = aniCon[GameManager.instance.playerId];
     }
 
     //// Update is called once per frame
